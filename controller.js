@@ -12,18 +12,17 @@ app.controller("myCtrl", function($scope) {
       year: "Senior"
     }
   ];
+
+  var array = JSON.parse(localStorage.getItem("Students") || []);
+
   $scope.addStudent = function() {
     $scope.errortext = "";
     if (!$scope.student) {
-      console.log("no student in scope");
       return;
     }
     if ($scope.students.indexOf($scope.student) == -1) {
-      console.log($scope.students.indexOf($scope.student));
-      localStorage.setItem(JSON.stringify($scope.student));
       $scope.students.push($scope.student);
-      var retrievedStudent = localStorage.getItem("Student");
-      console.log(retrievedStudent);
+      localStorage.setItem("Students", JSON.stringify($scope.students));
     } else {
       $scope.errortext = "This student is already in your organizer.";
     }

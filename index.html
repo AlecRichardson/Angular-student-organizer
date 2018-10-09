@@ -19,12 +19,15 @@
             <li ng-repeat="x in students" class="">{{x.name}}, {{x.studentNumber}}, {{x.address}}, {{x.phoneNumber}},
                 {{x.gpa}}, {{x.plan}}, {{x.year}}<span ng-click="removeItem($index)" style="cursor:pointer;" class="student">×</span></li>
 
+            <li ng-repeat="x in storage" class="">{{x.name}}, {{x.studentNumber}}, {{x.address}}, {{x.phoneNumber}},
+                {{x.gpa}}, {{x.plan}}, {{x.year}}<span ng-click="removeItem($index)" style="cursor:pointer;" class="student">×</span></li>
+
         </ul>
         <div class="">
             <div class="">
                 <h1>Add a student</h1>
                 <form class="addStudentForm">
-                    <input type='text' placeholder="Name" ng-model="student.name" class="">
+                    <input type='text' placeholder="Name" ng-model="student.name" ng-pattern="[a-zA-Z]+" class="">
                     <input type='number' placeholder="Student Number" ng-model="student.studentNumber" class="">
                     <input type='text' placeholder="Address" ng-model="student.address" class="">
                     <input type='number' placeholder="Phone number" ng-model="student.phoneNumber" class="">
