@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Organizer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script type="text/javascript" src="./controller.js"></script>
+</head>
+
+<body>
+
+    <div ng-app="studentOrganizer" ng-cloak ng-controller="myCtrl" class="container" style="max-width:400px;">
+        <header class="">
+            <h3>Student Organizer</h3>
+        </header>
+        <ul class="students">
+            <li ng-repeat="x in students" class="">{{x.name}}, {{x.studentNumber}}, {{x.address}}, {{x.phoneNumber}},
+                {{x.gpa}}, {{x.plan}}, {{x.year}}<span ng-click="removeItem($index)" style="cursor:pointer;" class="student">×</span></li>
+
+        </ul>
+        <div class="">
+            <div class="">
+                <h1>Add a student</h1>
+                <form class="addStudentForm">
+                    <input type='text' placeholder="Name" ng-model="student.name" class="">
+                    <input type='number' placeholder="Student Number" ng-model="student.studentNumber" class="">
+                    <input type='text' placeholder="Address" ng-model="student.address" class="">
+                    <input type='number' placeholder="Phone number" ng-model="student.phoneNumber" class="">
+                    <input type='number' placeholder="GPA" ng-model="student.gpa" class="">
+                    <input type='text' placeholder="Academic plan (ex: CS, IT, etc.)" ng-model="student.plan" class="">
+                    <input type='number' placeholder="Year (ex: freshman, junior, etc.)" ng-model="student.year" class="">
+                </form>
+                <div class="">
+                    <button ng-click="addStudent()" class="">Add</button>
+                </div>
+            </div>
+            <p class="">{{errortext}}</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
