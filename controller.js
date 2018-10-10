@@ -1,6 +1,6 @@
 var app = angular.module("studentOrganizer", []);
 
-app.controller("myCtrl", function($scope) {
+app.controller("myCtrl", function ($scope) {
   $scope.students = [];
   $scope.activetotal = 0;
   $scope.inactivetotal = 0;
@@ -9,7 +9,7 @@ app.controller("myCtrl", function($scope) {
   if (localStorage.getItem("Students")) {
     retrievedStudents = JSON.parse(localStorage.getItem("Students") || []);
   }
-  $scope.init = function() {
+  $scope.init = function () {
     for (var i = 0; i < retrievedStudents.length; i++) {
       if (retrievedStudents[i].activity === "Active") {
         $scope.activetotal++;
@@ -20,8 +20,16 @@ app.controller("myCtrl", function($scope) {
     }
   };
 
-  $scope.addStudent = function() {
-    var pattern = new RegExp("^[a-zA-Zs]*$");
+  $scope.addStudent = function () {
+    var pattern = /^[a-zA-Z\s]+$/;
+
+    if (!$scope.student || !$scope.student.name || !$scope.student.address || !$scope.student.studentNumber || !$scope.student.phoneNumber || !$scope.student.plan || !$scope.student.year) {
+      $scope.errortext = 'All fields are required';
+      return;
+    }
+
+
+    $scope.errortext = "";
     if (!pattern.test($scope.student.name)) {
       console.log("test");
       $scope.errortext = "Name field only accepts letters.";
@@ -30,10 +38,8 @@ app.controller("myCtrl", function($scope) {
       $scope.errortext = "Academic plan field only accepts letters.";
       return;
     }
-    $scope.errortext = "";
-    if (!$scope.student) {
-      return;
-    }
+
+
     if ($scope.students.indexOf($scope.student) == -1) {
       if ($scope.student.activity === true) {
         $scope.student.activity = "Active";
@@ -50,7 +56,7 @@ app.controller("myCtrl", function($scope) {
 
     $scope.student = null;
   };
-  $scope.removeItem = function(x) {
+  $scope.removeItem = function (x) {
     $scope.errortext = "";
     if ($scope.students[x].activity === "Active") {
       $scope.activetotal--;
@@ -61,7 +67,7 @@ app.controller("myCtrl", function($scope) {
     localStorage.setItem("Students", JSON.stringify($scope.students));
   };
 
-  $scope.toggleActive = function(obj, data) {
+  $scope.toggleActive = function (obj, data) {
     var i = $scope.students.indexOf(obj);
 
     if ($scope.students[i].activity === data) {
@@ -79,51 +85,5 @@ app.controller("myCtrl", function($scope) {
     }
 
     localStorage.setItem("Students", JSON.stringify($scope.students));
-  };
-});
-
-app.directive("restrictInput", function() {
-  return {
-    restrict: "A",
-    require: "ngModel",
-    link: function(scope, element, attr, ctrl) {
-      ctrl.$parsers.unshift(function(viewValue) {
-        var options = scope.$eval(attr.restrictInput);
-        if (!options.regex && options.type) {
-          switch (options.type) {
-            case "digitsOnly":
-              options.regex = "^[0-9]*$";
-              break;
-            case "lettersOnly":
-              options.regex = "^[a-zA-Z]*$";
-              break;
-            case "lowercaseLettersOnly":
-              options.regex = "^[a-z]*$";
-              break;
-            case "uppercaseLettersOnly":
-              options.regex = "^[A-Z]*$";
-              break;
-            case "lettersAndDigitsOnly":
-              options.regex = "^[a-zA-Z0-9]*$";
-              break;
-            case "validPhoneCharsOnly":
-              options.regex = "^[0-9 ()/-]*$";
-              break;
-            default:
-              options.regex = "";
-          }
-        }
-        var reg = new RegExp(options.regex);
-        if (reg.test(viewValue)) {
-          return viewValue;
-        } else {
-          var overrideValue = reg.test(ctrl.$modelValue)
-            ? ctrl.$modelValue
-            : "";
-          element.val(overrideValue);
-          return overrideValue;
-        }
-      });
-    }
   };
 });
