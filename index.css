@@ -1,0 +1,16 @@
+.student-list-item {
+  display: block;
+}
+.jumbotron {
+  background-color: darkred;
+  color: white;
+}
+
+.container-fluid {
+  background-color: darkgray;
+}
+
+.student-container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
