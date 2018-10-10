@@ -24,6 +24,7 @@
         <div class="form-container container" style='max-width: 500px;'>
             <div>
                 <h1 class="text-center" style='margin: 20px;'>Add a student</h1>
+                <p class='text-center' style='color: red;'>{{errortext}}</p>
                 <form class="addStudentForm">
                     <input type='text' placeholder="Name" ng-model="student.name" class="form-control">
                     <input type='number' placeholder="Student Number" ng-model="student.studentNumber" class="form-control">
@@ -44,15 +45,14 @@
                     <button class="btn btn-danger" name='inactive' ng-click="mySwitch = 'inactive'">View inactive</button>
                 </div>
             </div>
-            <p class="">{{errortext}}</p>
+
         </div>
         <!-- ================================== Student List =============================== -->
         <div class='student-container text-center' ng-switch='mySwitch'>
             <!-- ============================= All Students switch ========================= -->
             <div ng-switch-when='all'>
-
-                <ul class="students list-group">
-                    <li ng-repeat="x in students track by $index" class="student-list list-group-item  container text-left">
+                <div class='row'>
+                    <div ng-repeat="x in students track by $index" class="student-list list-group-item  container text-left col-sm-12 col-md-4 col-lg-3">
                         <h5 class="student-list">Name: {{x.name}}</h5>
                         <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
                         <span class="student-list-item">Address: {{x.address}}</span>
@@ -64,27 +64,25 @@
 
 
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Activity
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Active')">Active</a>
-                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Inactive')">Inactive</a>
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive(x, 'Active')">Active</a>
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive(x, 'Inactive')">Inactive</a>
                             </div>
 
                         </div>
 
                         <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-        <!-- ============================= ACTIVE Students switch ========================= -->
-        <div ng-switch-when='active'>
-            <div class='col-3'>
-                <ul class="students list-group">
-                    <li ng-repeat="x in studentsActive track by $index" class="student-list list-group-item  container text-left">
+            <!-- ============================= ACTIVE Students switch ========================= -->
+            <div ng-switch-when='active'>
+                <div class='row'>
+                    <div ng-repeat="x in students | filter : {activity: '!inactive'} track by $index " class="student-list list-group-item  container text-left col-sm-12 col-md-4 col-lg-3">
                         <h5 class="student-list">Name: {{x.name}}</h5>
                         <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
                         <span class="student-list-item">Address: {{x.address}}</span>
@@ -101,66 +99,62 @@
                                 Activity
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Active')">Active</a>
-                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Inactive')">Not
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive(x, 'Active')">Active</a>
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive(x, 'Inactive')">Not
                                     Active</a>
                             </div>
 
                         </div>
 
                         <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
-                    </li>
+                    </div>
+                </div>
                 </ul>
             </div>
-        </div>
 
-        <!-- =========================== INACTIVE Students switch ======================= -->
+            <!-- =========================== INACTIVE Students switch ======================= -->
 
-        <div ng-switch-when='inactive'>
-            <div class='col-3'>
+            <div ng-switch-when='inactive'>
+
                 <ul class="students list-group">
-                    <li ng-repeat="x in studentsInactive track by $index" class="student-list list-group-item  container text-left">
-                        <h5 class="student-list">Name: {{x.name}}</h5>
-                        <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
-                        <span class="student-list-item">Address: {{x.address}}</span>
-                        <span class="student-list-item">Phone Number: {{x.phoneNumber}}</span>
-                        <span class="student-list-item">GPA: {{x.gpa}}</span>
-                        <span class="student-list-item">Academic Plan: {{x.plan}}</span>
-                        <span class="student-list-item">Year: {{x.year}}</span>
-                        <span class="student text-center">Activity: {{x.activity}}</span>
+                    <div class='row justify-content-start'>
+                        <div ng-repeat="x in students | filter : {activity: 'inactive'} track by $index " class="student-list list-group-item  container text-left col-sm-12 col-md-4 col-lg-3">
+                            <h5 class="student-list">Name: {{x.name}}</h5>
+                            <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
+                            <span class="student-list-item">Address: {{x.address}}</span>
+                            <span class="student-list-item">Phone Number: {{x.phoneNumber}}</span>
+                            <span class="student-list-item">GPA: {{x.gpa}}</span>
+                            <span class="student-list-item">Academic Plan: {{x.plan}}</span>
+                            <span class="student-list-item">Year: {{x.year}}</span>
+                            <span class="student text-center">Activity: {{x.activity}}</span>
 
 
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Activity
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Active')">Active</a>
-                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Inactive')">Not
-                                    Active</a>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Activity
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive(x, 'Active')">Active</a>
+                                    <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive(x, 'Inactive')">Not
+                                        Active</a>
+                                </div>
+
                             </div>
 
+                            <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
                         </div>
-
-                        <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
-                    </li>
+                    </div>
                 </ul>
             </div>
         </div>
-        </ul>
 
-
-
-    </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>
