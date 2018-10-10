@@ -15,11 +15,12 @@
     <div ng-app="studentOrganizer" ng-cloak ng-controller="myCtrl" data-ng-init="init()" class="container-fluid">
 
         <header class="jumbotron text-center">
+            <div class='header'></div>
             <h1 style='margin: 20px;'>Student Organizer</h1>
             <div>Active students: {{activetotal}}</div>
             <div>Inactive students: {{inactivetotal}}</div>
         </header>
-
+        <!-- ==================================== Form ================================= -->
         <div class="form-container container" style='max-width: 500px;'>
             <div>
                 <h1 class="text-center" style='margin: 20px;'>Add a student</h1>
@@ -45,114 +46,113 @@
             </div>
             <p class="">{{errortext}}</p>
         </div>
-
+        <!-- ================================== Student List =============================== -->
         <div class='student-container text-center' ng-switch='mySwitch'>
-
-
+            <!-- ============================= All Students switch ========================= -->
             <div ng-switch-when='all'>
-                <div class='row'>
-                    <ul class="students list-group">
-                        <li ng-repeat="x in students track by $index" class="student-list list-group-item  container text-left">
-                            <h5 class="student-list">Name: {{x.name}}</h5>
-                            <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
-                            <span class="student-list-item">Address: {{x.address}}</span>
-                            <span class="student-list-item">Phone Number: {{x.phoneNumber}}</span>
-                            <span class="student-list-item">GPA: {{x.gpa}}</span>
-                            <span class="student-list-item">Academic Plan: {{x.plan}}</span>
-                            <span class="student-list-item">Year: {{x.year}}</span>
-                            <span class="student text-center">Activity: {{x.activity}}</span>
+
+                <ul class="students list-group">
+                    <li ng-repeat="x in students track by $index" class="student-list list-group-item  container text-left">
+                        <h5 class="student-list">Name: {{x.name}}</h5>
+                        <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
+                        <span class="student-list-item">Address: {{x.address}}</span>
+                        <span class="student-list-item">Phone Number: {{x.phoneNumber}}</span>
+                        <span class="student-list-item">GPA: {{x.gpa}}</span>
+                        <span class="student-list-item">Academic Plan: {{x.plan}}</span>
+                        <span class="student-list-item">Year: {{x.year}}</span>
+                        <span class="student text-center">Activity: {{x.activity}}</span>
 
 
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Activity
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Active')">Active</a>
-                                    <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Inactive')">Not
-                                        Active</a>
-                                </div>
-
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Activity
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Active')">Active</a>
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Inactive')">Inactive</a>
                             </div>
 
-                            <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+
+                        <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
+                    </li>
+                </ul>
             </div>
-
-            <div ng-switch-when='active'>
-                <div class='row'>
-                    <ul class="students list-group">
-                        <li ng-repeat="x in studentsActive track by $index" class="student-list list-group-item  container text-left">
-                            <h5 class="student-list">Name: {{x.name}}</h5>
-                            <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
-                            <span class="student-list-item">Address: {{x.address}}</span>
-                            <span class="student-list-item">Phone Number: {{x.phoneNumber}}</span>
-                            <span class="student-list-item">GPA: {{x.gpa}}</span>
-                            <span class="student-list-item">Academic Plan: {{x.plan}}</span>
-                            <span class="student-list-item">Year: {{x.year}}</span>
-                            <span class="student text-center">Activity: {{x.activity}}</span>
-
-
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Activity
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Active')">Active</a>
-                                    <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Inactive')">Not
-                                        Active</a>
-                                </div>
-
-                            </div>
-
-                            <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
-                        </li>
-                    </ul>
-                </div>
-                >
-            </div>
-
-            <div ng-switch-when='inactive'>
-                <div class='row'>
-                    <ul class="students list-group">
-                        <li ng-repeat="x in studentsInactive track by $index" class="student-list list-group-item  container text-left">
-                            <h5 class="student-list">Name: {{x.name}}</h5>
-                            <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
-                            <span class="student-list-item">Address: {{x.address}}</span>
-                            <span class="student-list-item">Phone Number: {{x.phoneNumber}}</span>
-                            <span class="student-list-item">GPA: {{x.gpa}}</span>
-                            <span class="student-list-item">Academic Plan: {{x.plan}}</span>
-                            <span class="student-list-item">Year: {{x.year}}</span>
-                            <span class="student text-center">Activity: {{x.activity}}</span>
-
-
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Activity
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Active')">Active</a>
-                                    <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Inactive')">Not
-                                        Active</a>
-                                </div>
-
-                            </div>
-
-                            <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            </ul>
-
-
-
         </div>
+        <!-- ============================= ACTIVE Students switch ========================= -->
+        <div ng-switch-when='active'>
+            <div class='col-3'>
+                <ul class="students list-group">
+                    <li ng-repeat="x in studentsActive track by $index" class="student-list list-group-item  container text-left">
+                        <h5 class="student-list">Name: {{x.name}}</h5>
+                        <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
+                        <span class="student-list-item">Address: {{x.address}}</span>
+                        <span class="student-list-item">Phone Number: {{x.phoneNumber}}</span>
+                        <span class="student-list-item">GPA: {{x.gpa}}</span>
+                        <span class="student-list-item">Academic Plan: {{x.plan}}</span>
+                        <span class="student-list-item">Year: {{x.year}}</span>
+                        <span class="student text-center">Activity: {{x.activity}}</span>
+
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Activity
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Active')">Active</a>
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Inactive')">Not
+                                    Active</a>
+                            </div>
+
+                        </div>
+
+                        <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- =========================== INACTIVE Students switch ======================= -->
+
+        <div ng-switch-when='inactive'>
+            <div class='col-3'>
+                <ul class="students list-group">
+                    <li ng-repeat="x in studentsInactive track by $index" class="student-list list-group-item  container text-left">
+                        <h5 class="student-list">Name: {{x.name}}</h5>
+                        <span class="student-list-item">Student Number: {{x.studentNumber}}</span>
+                        <span class="student-list-item">Address: {{x.address}}</span>
+                        <span class="student-list-item">Phone Number: {{x.phoneNumber}}</span>
+                        <span class="student-list-item">GPA: {{x.gpa}}</span>
+                        <span class="student-list-item">Academic Plan: {{x.plan}}</span>
+                        <span class="student-list-item">Year: {{x.year}}</span>
+                        <span class="student text-center">Activity: {{x.activity}}</span>
+
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Activity
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Active')">Active</a>
+                                <a class="dropdown-item" style="cursor:pointer;" ng-click="toggleActive($index, 'Inactive')">Not
+                                    Active</a>
+                            </div>
+
+                        </div>
+
+                        <span ng-click="removeItem($index)" style="cursor:pointer;" class="student float-right">×</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </ul>
+
+
+
+    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

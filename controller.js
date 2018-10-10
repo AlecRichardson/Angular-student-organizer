@@ -48,8 +48,10 @@ app.controller("myCtrl", function($scope) {
     $scope.errortext = "";
     if ($scope.students[x].activity === "Active") {
       $scope.activetotal--;
+      $scope.studentsActive.splice(x, 1);
     } else {
       $scope.inactivetotal--;
+      $scope.studentsInactive.splice(x, 1);
     }
     $scope.students.splice(x, 1);
   };

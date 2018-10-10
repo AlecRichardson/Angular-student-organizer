@@ -8,9 +8,10 @@
 
 .container-fluid {
   background-color: darkgray;
+  height: 100%;
 }
 
 .student-container {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin: 10%;
+  padding: 5%;
 }
